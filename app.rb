@@ -26,22 +26,23 @@ def rpcrypt(plain, key)
   encrypted = ''
   local_key = key.chars
   plain.chars.each_with_index do |c, i|
-    encrypted += (c.ord ^ local_key.shift.ord).chr
+    encrypted += (c.ord ^ local_key.rotate.first.ord).chr
   end
   encrypted
 end
 
-def rpdecrupt(encrypted, key)
+def rpdecryupt(encrypted, key)
   decrypted = ''
   local_key = key.chars
   encrypted.chars.each_with_index do |c, i|
-    decrypted += (c.ord ^ local_key.shift.ord).chr
+    decrypted += (c.ord ^ local_key.rotate.first.ord).chr
   end
   decrypted
 end
 
+plaintext = "A plaintext that is relatively longer than the passphrase"
+
 rpencrypted = rpcrypt plaintext, key
-rpdecrypted = rpdecrupt rpencrypted, key
+rpdecrypted = rpdecryupt rpencrypted, key
 
-puts "#{otpencrypted.inspect} #{otpdecrypted}"
-
+puts "#{rpencrypted.inspect} #{rpdecrypted}"
